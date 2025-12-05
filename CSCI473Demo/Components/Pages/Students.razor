@@ -1,0 +1,51 @@
+@using Entities
+@using System.Xml.Serialization
+@page "/students"
+@rendermode InteractiveServer
+
+<h3>Student management</H3>
+
+<div class="container">
+    <div class="row">
+        <div class = "col-md-3">Id</div>
+        <div class = "col-md-3">Last</div>
+        <div class = "col-md-3">First</div>
+        <div class = "col-md-3">Email</div>
+    </div>
+
+    @if (students == null || students.Count ==0)
+    {
+        <h3> No Students Available</h3>
+    }
+    else
+    {
+        @foreach (var student in students)
+        {   
+            <StudentInfo Student=student/>            
+        }
+    }
+</div>
+
+<StudentEditor OnStudentModified="OnStudentModified"/>
+
+
+@code
+{
+    List<Student>? students;
+
+    protected override Task OnInitializedAsync()
+    {
+        students = [ 
+                                    new Student { LastName = "Schoeneman", FirstName="Larry", Email="lschoene@harpercollege.edu", Id = 1},
+                                    new Student { LastName = "Bob", FirstName="Silent", Email="sideshowbob@simpsons.com", Id = 2},
+                                    new Student { LastName = "Simpson", FirstName="Homer", Email="homersimpson@simpsons.com", Id = 3},
+                                    new Student { LastName = "Burns", FirstName="Monty", Email="mrburns@simpson.com", Id = 4}];
+        return base.OnInitializedAsync();                                    
+    }
+
+    public void OnStudentModified(Student student)
+    {
+        students.Add(student);
+    }
+    
+}

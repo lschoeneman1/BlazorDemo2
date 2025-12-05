@@ -1,0 +1,42 @@
+@using Entities
+@rendermode InteractiveServer
+
+
+<form>
+  <div class="form-group">
+    <label for="studentId">Student Id</label>
+    <input  @bind="@student.Id" type="text" class="form-control" id="studentId" placeholder="0">
+  </div>
+  <div class="form-group">
+    <label for="firstname">First Name</label>
+    <input  @bind="@student.FirstName" type="text" class="form-control" id="firstname" placeholder="Bob">
+  </div>
+  <div class="form-group">
+    <label for="lastname">Last  Name</label>
+    <input @bind="@student.LastName" type="text" class="form-control" id="lastname" placeholder="Smith">
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="text" @bind="@student.Email"  class="form-control" id="email" placeholder="bob@bob.com">
+  </div>
+  <button  onclick=@AddOrUpdateStudent type="submit" class="btn btn-default">Submit</button>
+</form>
+
+
+@code 
+{
+    [Parameter]
+    public EventCallback<Student> OnStudentModified {get; set;}
+
+    [Parameter]
+    public Student? student {get; set;} = new Student();
+
+    public void AddOrUpdateStudent()
+    {
+        if (student!=null)
+        {
+            OnStudentModified.InvokeAsync(student);
+        }
+
+    }
+}

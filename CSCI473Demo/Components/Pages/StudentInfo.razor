@@ -1,0 +1,17 @@
+@using Entities
+@rendermode InteractiveServer
+
+@if (Student!=null)
+{
+    <div class="row">
+        <div class = "col-md-3">@Student.Id</div>
+        <div class = "col-md-3">@Student.LastName</div>
+        <div class = "col-md-3">@Student.FirstName</div>
+        <div class = "col-md-3">@Student.Email</div>
+    </div>
+}
+@code 
+{
+    [Parameter]
+    public Student? Student {get; set;}
+}
